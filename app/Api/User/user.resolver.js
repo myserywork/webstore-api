@@ -27,9 +27,26 @@ module.exports  = {
 
     // Create new user
     async createUser(_, { username, email, password }) {
-      console.log("checK")
       return await User.create({ username, email, password })
     },
+
+    async editUser(_, {request, Input}, { auth }) {
+
+     console.log(request)
+      try {
+        await auth.check()
+
+      } catch (error) {
+        // return error.message
+      }
+
+       console.log(Input)
+       const dota = {}
+       dota.id = 0;
+       return  dota
+       return await User.create({ username, email, password })
+    }
+
   }
 
 
