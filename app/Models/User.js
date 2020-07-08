@@ -27,13 +27,17 @@ class User extends Model {
 
   }
 
-  enderecos() {
-    return this.hasMany('App/Models/Endereco','id','idUsuario')
+  identifications() {
+    return this.hasMany('App/Models/Identification','id','user_id')
   }
 
 
   static get hidden () {
     return ['password','emailVerification']
+  }
+
+  static scopeHasIdentifications (query) {
+   query.has('identifications')
   }
 
   /**

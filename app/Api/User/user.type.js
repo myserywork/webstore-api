@@ -5,7 +5,8 @@ type User {
   id: Int!
   username: String!
   password: String
-  name: String!
+  first_name: String!
+  last_name: String!
   email: String!
   Identifications: [Identifications],
   Orders: [Order],
@@ -18,7 +19,7 @@ type User {
 
 type Identifications {
   id: Int!
-  user: User!
+  user_id: User!
   name: String!
   value: String!
 }
@@ -39,7 +40,8 @@ input IdentificationsInput {
 input UserInput {
   username: String!
   password: String
-  name: String!
+  first_name: String!
+  last_name: String!
   email: String!
   Identifications: [IdentificationsInput]
 }
@@ -47,7 +49,7 @@ input UserInput {
 type Mutation {
   login (email: String!, password: String!): String
   createUser (username: String!, email: String!, password: String!): User
-  editUser (Input: UserInput): User
+  editUser (id: ID!,Input: UserInput): User
 }
 
 `;

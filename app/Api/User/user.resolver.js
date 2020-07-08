@@ -7,7 +7,7 @@ module.exports  = {
 
   Query: {
     async allUsers() {
-      const users = await User.all()
+      const users = await await User.query().with('identifications').fetch()
       return users.toJSON()
     },
     // Get a user by its ID
@@ -30,23 +30,18 @@ module.exports  = {
       return await User.create({ username, email, password })
     },
 
-    async editUser(_, {request, Input}, { auth }) {
-
-     console.log(request)
+    async editUser(_, {id , Input}, { auth }) {
       try {
         await auth.check()
-
+        const user =  await User
+        .query()
+        .where('id', id)
+        .update(Input)
+        return Input
       } catch (error) {
-        // return error.message
+        throw new Error('Missing or invalid jwt token')
       }
-
-       console.log(Input)
-       const dota = {}
-       dota.id = 0;
-       return  dota
-       return await User.create({ username, email, password })
     }
-
   }
 
 
