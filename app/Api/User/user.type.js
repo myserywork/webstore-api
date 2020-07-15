@@ -25,11 +25,6 @@ type Identifications {
 }
 
 
-type Query {
-  allUsers: [User]
-  fetchUser(id: Int!): User
-}
-
 input IdentificationsInput {
   id: Int!
   user: String!
@@ -46,10 +41,18 @@ input UserInput {
   Identifications: [IdentificationsInput]
 }
 
+
 type Mutation {
   login (email: String!, password: String!): String
   createUser (username: String!, email: String!, password: String!): User
   editUser (id: ID!,Input: UserInput): User
+  deleteUser (id: ID!): String
+}
+
+
+type Query {
+  allUsers: [User]
+  fetchUser(id: Int!): User
 }
 
 `;

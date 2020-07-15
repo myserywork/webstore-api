@@ -19,6 +19,7 @@ const providers = [
   "@adonisjs/ally/providers/AllyProvider",
   "@adonisjs/validator/providers/ValidatorProvider",
   "adonis-apollo-server/providers/ApolloServerProvider",
+  'adonis-graphql/providers/GraphQLProvider'
 ];
 
 /*

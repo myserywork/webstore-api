@@ -33,7 +33,7 @@ class User extends Model {
 
 
   static get hidden () {
-    return ['password','emailVerification']
+    return ['emailVerification']
   }
 
   static scopeHasIdentifications (query) {

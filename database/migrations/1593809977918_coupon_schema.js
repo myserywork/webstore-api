@@ -12,7 +12,7 @@ class CouponSchema extends Schema {
       table.integer('number_of_used_coupon', 60).notNullable()
       table.integer('discount_in_percent').notNullable()
       table.integer('category_id', 60).unsigned().references('id').inTable('categories')
-      table.integer('code', 60).notNullable()
+      table.string('code', 60).notNullable()
       table.integer('minimum_amount', 60).notNullable()
       table.string('status', 60).notNullable()
       table.string('expiration_date', 60).notNullable()
