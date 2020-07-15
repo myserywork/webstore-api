@@ -25,4 +25,5 @@ type Query {
   fetchGallery(id: Int!): Gallery
 }
 
+
 `;

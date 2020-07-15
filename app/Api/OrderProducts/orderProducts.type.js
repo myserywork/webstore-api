@@ -1,47 +1,41 @@
 
 module.exports = `
 
-type Product {
+type OrderProduct {
   id: Int!
   title: String!
   slug: String!
   type: String!
   unit : Int
-  image : String
   description : String
   price : Int
   salePrice : Int
   discountInPercent : Int
-  author : Int
-  meta : String
 }
 
-input ProductInput {
+input OrderProductInput {
   title: String!
   slug: String!
   type: String!
   unit : Int
-  image : String
   description : String
   price : Int
   salePrice : Int
   discountInPercent : Int
-  author : Int
-  meta : String
 }
 
 
 type Mutation {
-  createProduct(Input: ProductInput): Product
-  editProduct(id: ID!,Input: ProductInput): Product
-  deleteProduct(id: ID!): String
+  createOrderProduct(Input: OrderProductInput): OrderProduct
+  editOrderProduct(id: ID!,Input: OrderProductInput): OrderProduct
+  deleteOrderProduct(id: ID!): String
 }
 
 
 type Query {
-  allProducts: [Product]
-  fetchUserProducts(userId: Int!): [Product]
-  fetchProduct(id: Int!): Product
+  allOrderProducts: [OrderProduct]
+  fetchUserOrderProducts(userId: Int!): [OrderProduct]
+  fetchOrderProduct(id: Int!): OrderProduct
 }
 
 

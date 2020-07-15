@@ -3,33 +3,49 @@ module.exports = `
 
 type Order {
   id: Int
-  user : User!
+  user_id : Int
   payment_method: String
-  Products : [Product]
   status: String
   deliveryTime : String
   amount: Int
   subtotal : Int
   discount : Int
   deliveryFee : Int
-  deliveryAddress : [Adress]
+  deliveryAddress : Int
   description : String
-  date : String
 }
 
+input OrderInput {
+  user_id : Int!
+  payment_method: String
+  status: String
+  deliveryTime : String
+  amount: Int
+  subtotal : Int
+  discount : Int
+  deliveryFee : Int
+  deliveryAddress : Int
+  description : String
+}
+
+
+type Mutation {
+  createOrder(Input: OrderInput): Order
+  editOrder(id: ID!,Input: OrderInput): Order
+  deleteOrder(id: ID!): String
+}
 
 
 type Query {
   allOrders: [Order]
+  fetchUserOrders(userId: Int!): [Order]
+  fetchOrder(id: Int!): Order
 }
+
+
 
 `;
 
-/*
-mutation {
-  createUser(email: "ox5ggi@live.com",password: "test",username:"test") {
-    username
-  }
-}
 
-*/
+
+

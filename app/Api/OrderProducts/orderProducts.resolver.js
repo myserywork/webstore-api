@@ -1,6 +1,6 @@
 "use strict";
 
-const Product = use("App/Models/Product");
+const OrderProduct = use("App/Models/OrderProduct");
 const User = use("App/Models/User");
 const { validate } = use('Validator')
 const GraphQLError = use('GraphQLError')
@@ -9,29 +9,29 @@ const GraphQLError = use('GraphQLError')
 module.exports  = {
 
   Query: {
-    async allProducts() {
-      const products = await await Product.all()
-      return products.toJSON()
+    async allOrderProducts() {
+      const OrderProducts = await await OrderProduct.all()
+      return OrderProducts.toJSON()
     },
     // Get a user by its ID
-    async fetchProduct(_,{ id }) {
-      const products = await Product.find(id)
-      return products.toJSON()
+    async fetchOrderProduct(_,{ id }) {
+      const OrderProducts = await OrderProduct.find(id)
+      return OrderProducts.toJSON()
     },
 
-    async fetchUserProducts(_,{ userId }) {
-      const products = await Product.query().where('user_id','=',userId).fetch()
-      return products.toJSON()
+    async fetchUserOrderProducts(_,{ userId }) {
+      const OrderProducts = await OrderProduct.query().where('user_id','=',userId).fetch()
+      return OrderProducts.toJSON()
     },
 
   },
 
   Mutation: {
 
-    // Create new Product
-    async createProduct(_, { Input } , { auth } ) {
+    // Create new OrderProduct
+    async createOrderProduct(_, { Input } , { auth } ) {
 
-      const { title , slug , type, unit  , description , price, salePrice, discountInPercent , author , meta } = Input
+      const { title , slug , type, unit  , description , price, salePrice, discountInPercent  } = Input
 
       try {
         await auth.check()
@@ -57,7 +57,7 @@ module.exports  = {
         min: (field) =>  `O campo ${field} deve conhter no minimo 5 caracteres`
       }
 
-      const validation = await validate({ title , slug , type, unit  , description , price, salePrice, discountInPercent , author , meta }  , rules, messages);
+      const validation = await validate({ title , slug , type, unit  , description , price, salePrice, discountInPercent }  , rules, messages);
 
       if (validation.fails()) {
         console.log(validation.messages())
@@ -65,11 +65,11 @@ module.exports  = {
       }
 
 
-      return await Product.create({ title , slug , type, unit ,  description , price, salePrice, discountInPercent , author , meta})
+      return await OrderProduct.create({ title , slug , type, unit ,  description , price, salePrice, discountInPercent })
 
     },
 
-    async editProduct(_, {id , Input }, { auth }) {
+    async editOrderProduct(_, {id , Input }, { auth }) {
 
       try {
         await auth.check()
@@ -77,18 +77,18 @@ module.exports  = {
         throw new Error(error)
       }
 
-      const product = await Product
+      const orderProduct = await OrderProduct
       .query()
       .where('id', id)
       .update(Input,Input)
 
-      if ( product < 1 ) return null
+      if ( orderProduct < 1 ) return null
 
       return Input
 
     },
 
-    async deleteProduct(_, {id} , { auth }) {
+    async deleteOrderProduct(_, {id} , { auth }) {
 
     try {
       await auth.check()
@@ -96,15 +96,15 @@ module.exports  = {
       throw new Error(error)
     }
 
-    const product = await Product.find(id)
+    const orderProduct = await OrderProduct.find(id)
 
-    if(!product) {
-      throw new GraphQLError('Product nao encontrato')
+    if(!orderProduct) {
+      throw new GraphQLError('OrderProduct nao encontrato')
     }
 
-    const deleteProduct = await product.delete();
+    const deleteOrderProduct = await OrderProduct.delete();
 
-    return deleteProduct
+    return deleteOrderProduct
 
     }
 

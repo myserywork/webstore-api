@@ -26,7 +26,7 @@ module.exports  = {
     // Create new Gallery
     async createGallery(_, { Input } , { auth } ) {
 
-      const { title, product_id } = Input
+      const { url , product_id } = Input
 
       try {
         await auth.check()
@@ -45,7 +45,7 @@ module.exports  = {
         min: (field) =>  `O campo ${field} deve conhter no minimo 5 caracteres`
       }
 
-      const validation = await validate({ title, product_id  }, rules, messages);
+      const validation = await validate({ url, product_id  }, rules, messages);
 
       if (validation.fails()) {
         console.log(validation.messages())
@@ -53,7 +53,7 @@ module.exports  = {
       }
 
 
-      return await Gallery.create({ title, product_id  })
+      return await Gallery.create({ url, product_id  })
 
     },
 
